@@ -46,21 +46,34 @@ def data_by_keyword(keyword):
     ## keyword 넣으면 날짜별 스코어 1/2와 워드 클라우드
     data = get_data()
     total_len = len(data)
+    print("keyword is ",keyword)
     if keyword != "":
         data['tf'] = data['title_new'].apply(lambda x: keyword in str(x))
         data = data[data.tf == True]
         del data['tf']
+        data_neg = data.sort_values('jybert_score').drop_duplicates(subset=['date', 'title_new']).iloc[:10]
+        data_neg = {'date': data_neg.date.tolist(),
+                    'title': data_neg.title_new.tolist(),
+                    'score': list(map(lambda x: int(x * 100) / 100, data_neg.jybert_score.tolist()))
+                    }
+        data_pos = data.sort_values('jybert_score', ascending=False).drop_duplicates(subset=['date', 'title_new']).iloc[
+                   :10]
+        data_pos = {'date': data_pos.date.tolist(),
+                    'title': data_pos.title_new.tolist(),
+                    'score': list(map(lambda x: int(x * 100) / 100, data_pos.jybert_score.tolist()))
+                    }
+    else:
+        data = data.sort_index().iloc[-10000:]
+        data_neg = {'date': [""],
+                    'title': [""],
+                    'score': [""]
+                    }
+        data_pos = {'date': [""],
+                    'title': [""],
+                    'score': [""]
+                    }
     print(len(data))
-    data_neg = data.sort_values('jybert_score').drop_duplicates(subset=['date','title_new']).iloc[:10]
-    data_neg = {'date':data_neg.date.tolist(),
-                'title': data_neg.title_new.tolist(),
-                'score': list(map(lambda x: int(x*100)/100,data_neg.jybert_score.tolist()))
-                }
-    data_pos = data.sort_values('jybert_score', ascending=False).drop_duplicates(subset=['date','title_new']).iloc[:10]
-    data_pos = {'date': data_pos.date.tolist(),
-                'title': data_pos.title_new.tolist(),
-                'score': list(map(lambda x: int(x*100)/100,data_pos.jybert_score.tolist()))
-                }
+
     sentence = re.sub('[^a-zA-Z가-힣0-9. ]', ' ', ' '.join(list(map(lambda x: str(x), data.title_new))))
     words = sentence.split(' ')
     words = list(filter(lambda x: len(x)>1, words))

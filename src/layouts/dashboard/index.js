@@ -46,6 +46,10 @@ function httpGet(theURL) {
   xmlHttp.send(null);
   return JSON.parse(xmlHttp.responseText);
 }
+localStorage.setItem("keyword", "");
+const start = httpGet("http://127.0.0.1:5001/keyword/".concat(localStorage.getItem("keyword")));
+console.log("me3");
+localStorage.setItem("keyword_data", JSON.stringify(start));
 // keyword 데이터 로드 및 할당
 function handleClick() {
   console.log(document.getElementById("keyword").value);
@@ -53,6 +57,7 @@ function handleClick() {
   const word = httpGet("http://127.0.0.1:5001/keyword/".concat(localStorage.getItem("keyword")));
   localStorage.setItem("keyword_data", JSON.stringify(word));
   window.dispatchEvent(new Event("keyword_data"));
+  console.log("me");
 }
 function handleClick2(word) {
   document.getElementById("keyword").value = word.text;
@@ -61,10 +66,10 @@ function handleClick2(word) {
   const words = httpGet("http://127.0.0.1:5001/keyword/".concat(localStorage.getItem("keyword")));
   localStorage.setItem("keyword_data", JSON.stringify(words));
   window.dispatchEvent(new Event("keyword_data"));
+  console.log("me2");
 }
 function Dashboard() {
-  //  const start = httpGet("http://127.0.0.1:5001/keyword/");
-  //  localStorage.setItem("keyword_data", JSON.stringify(start));
+  console.log("loaded");
   const { tasks } = reportsLineChartData;
   //  const { sum, avg } = reportsBarChartData;
   const [words, setWords] = useState("");
@@ -114,7 +119,9 @@ function Dashboard() {
     setMaxval(topfreqs.max_val);
     setCount(topfreqs.count_idx);
     setCountval(topfreqs.count);
-  });
+    console.log("end");
+    console.log("me3");
+  }, false);
   const callbacks = {
     //  getWordColor: (word) => (word.value > 50 ? "blue" : "red"),
     onWordClick: (word) => handleClick2(word),

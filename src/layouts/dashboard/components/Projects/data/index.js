@@ -28,7 +28,7 @@ export default function data() {
   //  localStorage.setItem("keyword_data", JSON.stringify(keyworddata));
   const keyworddata = JSON.parse(localStorage.getItem("keyword_data"));
   const rows = [];
-  for (let i = 0; i < 10; i += 1) {
+  for (let i = 0; i < keyworddata.data_neg.title.length; i += 1) {
     rows[i] = {
       headline: keyworddata.data_pos.title[i],
       date: keyworddata.data_pos.date[i],
