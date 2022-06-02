@@ -55,7 +55,9 @@ localStorage.setItem("keyword_data", JSON.stringify(start));
 function handleClick() {
   console.log(document.getElementById("keyword").value);
   localStorage.setItem("keyword", document.getElementById("keyword").value);
-  const word = httpGet("http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword")));
+  const word = httpGet(
+    "http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword"))
+  );
   localStorage.setItem("keyword_data", JSON.stringify(word));
   window.dispatchEvent(new Event("keyword_data"));
   console.log("me");
@@ -64,7 +66,9 @@ function handleClick2(word) {
   document.getElementById("keyword").value = word.text;
   console.log(document.getElementById("keyword").value);
   localStorage.setItem("keyword", word.text);
-  const words = httpGet("http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword")));
+  const words = httpGet(
+    "http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword"))
+  );
   localStorage.setItem("keyword_data", JSON.stringify(words));
   window.dispatchEvent(new Event("keyword_data"));
   console.log("me2");
