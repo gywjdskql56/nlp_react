@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/npm_react/static/js/main.ce43412a.js",
-    "index.html": "/npm_react/index.html",
-    "main.ce43412a.js.map": "/npm_react/static/js/main.ce43412a.js.map"
+    "main.js": "/nlp_react/static/js/main.ce43412a.js",
+    "index.html": "/nlp_react/index.html",
+    "main.ce43412a.js.map": "/nlp_react/static/js/main.ce43412a.js.map"
   },
   "entrypoints": [
     "static/js/main.ce43412a.js"
