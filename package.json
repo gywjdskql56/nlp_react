@@ -52,7 +52,7 @@
     "deploy" : "gh-pages -d build",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },
-  "homepage": "http://gywjdskql56.github.io/npm_react/",
+  "homepage": "https://gywjdskql56.github.io/nlp_react/",
   "eslintConfig": {
     "extends": [
       "react-app",
