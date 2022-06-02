@@ -49,8 +49,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy" : "gh-pages -d build",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
   },
+  "homepage": "https://gywjdskql56.github.io/npm_react/",
   "eslintConfig": {
     "extends": [
       "react-app",
