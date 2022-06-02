@@ -100,5 +100,5 @@ if __name__ == '__main__':
     # data_by_keyword('코스피')
     # top_freq_dat = data_by_date(data, 20181001)
     # top_freq_key = data_by_keyword(data, "코스피")
-    app.run(debug=True, host='0.0.0.0', port=5001)
+    app.run(debug=True, host='0.0.0.0', port=5000)
     print(1)
