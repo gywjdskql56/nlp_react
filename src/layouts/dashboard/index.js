@@ -37,7 +37,7 @@ import Projects2 from "layouts/dashboard/components/Projects2";
 import ReactWordcloud from "react-wordcloud";
 // import axios from "axios";
 import MDButton from "components/MDButton";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function httpGet(theURL) {
   console.log(theURL);
@@ -51,6 +51,7 @@ const start = httpGet("http://127.0.0.1:5001/keyword/".concat(localStorage.getIt
 console.log("me3");
 localStorage.setItem("keyword_data", JSON.stringify(start));
 // keyword 데이터 로드 및 할당
+
 function handleClick() {
   console.log(document.getElementById("keyword").value);
   localStorage.setItem("keyword", document.getElementById("keyword").value);
@@ -70,6 +71,7 @@ function handleClick2(word) {
 }
 function Dashboard() {
   console.log("loaded");
+
   const { tasks } = reportsLineChartData;
   //  const { sum, avg } = reportsBarChartData;
   const [words, setWords] = useState("");
@@ -83,45 +85,51 @@ function Dashboard() {
   const [maxval, setMaxval] = useState("");
   const [count, setCount] = useState("");
   const [countval, setCountval] = useState("");
-  window.addEventListener("keyword_data", () => {
-    const topfreqs = JSON.parse(localStorage.getItem("keyword_data"));
-    const topfreqList = [];
-    for (let i = 0; i < topfreqs.top_freq.length; i += 1) {
-      const item = {
-        text: topfreqs.top_freq[i][0],
-        value: topfreqs.top_freq[i][1],
-      };
-      topfreqList.push(item);
-    }
-    setWords(topfreqList);
+  useEffect(() => {
+    window.addEventListener(
+      "keyword_data",
+      () => {
+        const topfreqs = JSON.parse(localStorage.getItem("keyword_data"));
+        const topfreqList = [];
+        for (let i = 0; i < topfreqs.top_freq.length; i += 1) {
+          const item = {
+            text: topfreqs.top_freq[i][0],
+            value: topfreqs.top_freq[i][1],
+          };
+          topfreqList.push(item);
+        }
+        setWords(topfreqList);
 
-    const sumDict = {
-      labels: topfreqs.total_sum.date,
-      datasets: {
-        label: "total_sum",
-        data: topfreqs.total_sum.score,
+        const sumDict = {
+          labels: topfreqs.total_sum.date,
+          datasets: {
+            label: "total_sum",
+            data: topfreqs.total_sum.score,
+          },
+        };
+        setSum(sumDict);
+        const avgDict = {
+          labels: topfreqs.total_avg.date,
+          datasets: {
+            label: "total_avg",
+            data: topfreqs.total_avg.score,
+          },
+        };
+
+        setAvg(avgDict);
+        setLen(topfreqs.total_len);
+        setPer(topfreqs.percent);
+        setMinidx(topfreqs.min_idx);
+        setMinval(topfreqs.min_val);
+        setMaxidx(topfreqs.max_idx);
+        setMaxval(topfreqs.max_val);
+        setCount(topfreqs.count_idx);
+        setCountval(topfreqs.count);
       },
-    };
-    setSum(sumDict);
-    const avgDict = {
-      labels: topfreqs.total_avg.date,
-      datasets: {
-        label: "total_avg",
-        data: topfreqs.total_avg.score,
-      },
-    };
-    setAvg(avgDict);
-    setLen(topfreqs.total_len);
-    setPer(topfreqs.percent);
-    setMinidx(topfreqs.min_idx);
-    setMinval(topfreqs.min_val);
-    setMaxidx(topfreqs.max_idx);
-    setMaxval(topfreqs.max_val);
-    setCount(topfreqs.count_idx);
-    setCountval(topfreqs.count);
-    console.log("end");
-    console.log("me3");
+      []
+    );
   }, false);
+
   const callbacks = {
     //  getWordColor: (word) => (word.value > 50 ? "blue" : "red"),
     onWordClick: (word) => handleClick2(word),
