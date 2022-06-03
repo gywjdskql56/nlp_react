@@ -47,7 +47,7 @@ function httpGet(theURL) {
   return JSON.parse(xmlHttp.responseText);
 }
 localStorage.setItem("keyword", "");
-const start = httpGet("http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword")));
+const start = httpGet("http://13.209.68.205:5000/keyword/".concat(localStorage.getItem("keyword")));
 console.log("me3");
 localStorage.setItem("keyword_data", JSON.stringify(start));
 // keyword 데이터 로드 및 할당
@@ -56,7 +56,7 @@ function handleClick() {
   console.log(document.getElementById("keyword").value);
   localStorage.setItem("keyword", document.getElementById("keyword").value);
   const word = httpGet(
-    "http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword"))
+    "http://13.209.68.205:5000/keyword/".concat(localStorage.getItem("keyword"))
   );
   localStorage.setItem("keyword_data", JSON.stringify(word));
   window.dispatchEvent(new Event("keyword_data"));
@@ -67,7 +67,7 @@ function handleClick2(word) {
   console.log(document.getElementById("keyword").value);
   localStorage.setItem("keyword", word.text);
   const words = httpGet(
-    "http://172.16.120.19:5000/keyword/".concat(localStorage.getItem("keyword"))
+    "http://13.209.68.205:5000/keyword/".concat(localStorage.getItem("keyword"))
   );
   localStorage.setItem("keyword_data", JSON.stringify(words));
   window.dispatchEvent(new Event("keyword_data"));
